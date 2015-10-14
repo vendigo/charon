@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+       <bean id="sampleFileConfig" class="com.github.vendigo.charon.parser.FileConfiguration">
+              <constructor-arg name="configName" value="sample"/>
+              <constructor-arg name="fileNamePattern" value="sample.csv"/>
+              <constructor-arg name="columns">
+                     <list>
+                            <bean class="com.github.vendigo.charon.parser.Column">
+                                   <constructor-arg name="position" value="1"/>
+                                   <constructor-arg name="name" value="id"/>
+                                   <constructor-arg name="columnType" value="INT"/>
+                            </bean>
+                            <bean class="com.github.vendigo.charon.parser.Column">
+                                   <constructor-arg name="position" value="2"/>
+                                   <constructor-arg name="name" value="name"/>
+                                   <constructor-arg name="columnType" value="STRING"/>
+                            </bean>
+                            <bean class="com.github.vendigo.charon.parser.Column">
+                                   <constructor-arg name="position" value="3"/>
+                                   <constructor-arg name="name" value="age"/>
+                                   <constructor-arg name="columnType" value="INT"/>
+                            </bean>
+                     </list>
+              </constructor-arg>
+              <property name="delimiter" value="|"/>
+       </bean>
+
+</beans>

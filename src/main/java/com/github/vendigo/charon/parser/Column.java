@@ -1,0 +1,73 @@
+package com.github.vendigo.charon.parser;
+
+public class Column {
+    private int position;
+    private String name;
+    private ColumnType columnType;
+    private boolean nullable = true;
+    private Integer maxLength;
+    private Integer fixedLength;
+    private String dateFormat;
+
+    public Column(int position, String name, ColumnType columnType) {
+        this.position = position;
+        this.name = name;
+        this.columnType = columnType;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ColumnType getColumnType() {
+        return columnType;
+    }
+
+    public void setColumnType(ColumnType columnType) {
+        this.columnType = columnType;
+    }
+
+    public boolean isNullable() {
+        return nullable;
+    }
+
+    public void setNullable(boolean nullable) {
+        this.nullable = nullable;
+    }
+
+    public Integer getMaxLength() {
+        return maxLength;
+    }
+
+    public void setMaxLength(Integer maxLength) {
+        this.maxLength = maxLength;
+    }
+
+    public Integer getFixedLength() {
+        return fixedLength;
+    }
+
+    public void setFixedLength(Integer fixedLength) {
+        this.fixedLength = fixedLength;
+    }
+
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+}
