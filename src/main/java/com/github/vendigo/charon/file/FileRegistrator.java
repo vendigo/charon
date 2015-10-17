@@ -38,7 +38,7 @@ public class FileRegistrator {
 
         Optional<FileConfiguration> fileConfiguration = findFileConfiguration(file.getFileName());
         if (fileConfiguration.isPresent()) {
-            headers.put("fileConfiguration", fileConfiguration);
+            headers.put("fileConfiguration", fileConfiguration.get());
         }
 
         //TODO Else throw exception

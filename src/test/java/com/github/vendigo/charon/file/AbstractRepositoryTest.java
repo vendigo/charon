@@ -11,4 +11,5 @@ import javax.transaction.Transactional;
 @ContextConfiguration(classes = {RootConfiguraion.class})
 @Transactional
 public abstract class AbstractRepositoryTest {
+    //TODO Move to inMemory db
 }

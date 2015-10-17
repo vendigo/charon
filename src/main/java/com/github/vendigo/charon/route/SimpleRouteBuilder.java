@@ -26,15 +26,16 @@ public class SimpleRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
+        //TODO Return file moving
         //String pattern = "file://%1$s?move=%2$s&moveFailed=%3$s";
         fromF("file://%1$s?noop=true&fileName=%2$s", appProperties.getInFolder(), fileConf.getFileNamePattern()).
                 beanRef("registerFile").
                 split().tokenize("\n", appProperties.getChunkSize()).streaming().parallelProcessing().
                 unmarshal(csvDataFormat()).
                 beanRef("prepareRawRow").
-                //beanRef("sout");
-                //beanRef("queryBuilder").
-                to("sql:insert into SAMPLE_RAW (FILEID, LINENUMBER, ID, NAME, AGE) VALUES ");
+                beanRef("sout").
+                to("sql:insert into SAMPLE_RAW (FILEID, LINENUMBER, ID, NAME, AGE) VALUES :#${in.header.insertRawParams}?dataSource=#dataSource").
+                beanRef("sout");
 
     }
 }

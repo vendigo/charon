@@ -11,6 +11,7 @@ public class FileConfiguration {
     private String rawTableName;
     private String parsedTableName;
     private String histTableName;
+    private String insertRawParams;
 
     public FileConfiguration(String configName, String fileNamePattern, List<Column> columns) {
         //TODO Add Validation
@@ -69,5 +70,13 @@ public class FileConfiguration {
 
     public void setHistTableName(String histTableName) {
         this.histTableName = histTableName;
+    }
+
+    public String getInsertRawParams() {
+        return insertRawParams;
+    }
+
+    public void setInsertRawParams(String insertRawParams) {
+        this.insertRawParams = insertRawParams;
     }
 }
