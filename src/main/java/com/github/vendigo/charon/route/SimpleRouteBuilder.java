@@ -28,8 +28,13 @@ public class SimpleRouteBuilder extends RouteBuilder {
     public void configure() throws Exception {
         //String pattern = "file://%1$s?move=%2$s&moveFailed=%3$s";
         fromF("file://%1$s?noop=true&fileName=%2$s", appProperties.getInFolder(), fileConf.getFileNamePattern()).
-                beanRef("inFileProcessor").
+                beanRef("registerFile").
+                split().tokenize("\n", appProperties.getChunkSize()).streaming().parallelProcessing().
                 unmarshal(csvDataFormat()).
-                beanRef("sout");
+                beanRef("prepareRawRow").
+                //beanRef("sout");
+                //beanRef("queryBuilder").
+                to("sql:insert into SAMPLE_RAW (FILEID, LINENUMBER, ID, NAME, AGE) VALUES ");
+
     }
 }

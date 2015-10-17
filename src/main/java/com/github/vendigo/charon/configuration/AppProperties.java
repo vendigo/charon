@@ -12,6 +12,9 @@ public class AppProperties {
     @Value("${files.dir.failed}")
     private String failedFolder;
 
+    @Value("${chunksize}")
+    private int chunkSize;
+
     public String getInFolder() {
         return inFolder;
     }
@@ -22,5 +25,9 @@ public class AppProperties {
 
     public String getFailedFolder() {
         return failedFolder;
+    }
+
+    public int getChunkSize() {
+        return chunkSize;
     }
 }

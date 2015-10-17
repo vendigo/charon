@@ -1,10 +1,14 @@
 package com.github.vendigo.charon;
 
+import org.apache.camel.Body;
+import org.apache.camel.Handler;
 import org.springframework.stereotype.Component;
 
 @Component("sout")
 public class Sout {
-    public void print(Object body) {
-        System.out.println(body);
+    @Handler
+    public void print(@Body Object body) {
+        String message = "Message: \n %s \n ------------";
+        System.out.println(String.format(message, body));
     }
 }
