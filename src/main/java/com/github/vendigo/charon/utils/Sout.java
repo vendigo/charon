@@ -1,4 +1,4 @@
-package com.github.vendigo.charon;
+package com.github.vendigo.charon.utils;
 
 import org.apache.camel.Body;
 import org.apache.camel.Handler;

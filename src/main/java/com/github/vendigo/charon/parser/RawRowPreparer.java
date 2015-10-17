@@ -21,25 +21,6 @@ public class RawRowPreparer {
         Long fileId = (Long)headers.get("fileId");
         FileConfiguration fileConf = (FileConfiguration)headers.get("fileConfiguration");
         addFileIdAndLineNumber(chunk, chunkNum, fileId);
-        headers.put("insertRawParams", joinRows(chunk, fileConf));
-    }
-
-    private String joinRows(List<Map<String, String>> chunk, FileConfiguration fileConf) {
-        StringJoiner joiner = new StringJoiner(", ");
-        chunk.forEach(row -> joiner.add(joinOneRow(row, fileConf)));
-        return joiner.toString();
-    }
-
-    private String joinOneRow(Map<String, String> row, FileConfiguration fileConf) {
-        StringJoiner joiner = new StringJoiner(", ", "(", ")");
-        joiner.add(row.get("fileId")).
-               add(row.get("lineNumber"));
-        fileConf.getColumnNames().stream().forEach(columnName -> joiner.add(wrapInQuotes(row.get(columnName))));
-        return joiner.toString();
-    }
-
-    private String wrapInQuotes(String s) {
-        return "'"+s+"'";
     }
 
     private void addFileIdAndLineNumber(List<Map<String, String>> chunk, int chunkNum, Long fileId) {

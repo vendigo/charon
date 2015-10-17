@@ -1,11 +1,13 @@
 package com.github.vendigo.charon.configuration;
 
+import org.apache.camel.spring.spi.SpringTransactionPolicy;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
@@ -61,6 +63,20 @@ public class RootConfiguraion {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return transactionManager;
+    }
+
+    @Bean
+    public static DataSourceTransactionManager dataSourceTransactionManager() {
+        DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
+        transactionManager.setDataSource(dataSource());
+        return transactionManager;
+    }
+
+    @Bean
+    public static SpringTransactionPolicy springTransactionPolicy() {
+        SpringTransactionPolicy springTransactionPolicy = new SpringTransactionPolicy();
+        springTransactionPolicy.setTransactionManager(dataSourceTransactionManager());
+        return springTransactionPolicy;
     }
 
     @Value("classpath:schema.sql")

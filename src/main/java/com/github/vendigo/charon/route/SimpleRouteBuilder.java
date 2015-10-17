@@ -24,6 +24,11 @@ public class SimpleRouteBuilder extends RouteBuilder {
         return dataFormat;
     }
 
+    private String sqlRawTableEndpoint() {
+        String template = "sql:%s?dataSource=#dataSource&batch=true";
+        return String.format(template, new PreparedStatementCreator(fileConf).insertRawRow());
+    }
+
     @Override
     public void configure() throws Exception {
         //TODO Return file moving
@@ -33,9 +38,11 @@ public class SimpleRouteBuilder extends RouteBuilder {
                 split().tokenize("\n", appProperties.getChunkSize()).streaming().parallelProcessing().
                 unmarshal(csvDataFormat()).
                 beanRef("prepareRawRow").
-                beanRef("sout").
-                to("sql:insert into SAMPLE_RAW (FILEID, LINENUMBER, ID, NAME, AGE) VALUES :#${in.header.insertRawParams}?dataSource=#dataSource").
-                beanRef("sout");
+                to("direct:saveRawRecords");
 
+        from("direct:saveRawRecords").
+                transacted("springTransactionPolicy").
+                to(sqlRawTableEndpoint()).
+                beanRef("sout");
     }
 }
