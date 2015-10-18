@@ -1,5 +1,7 @@
 package com.github.vendigo.charon.parser;
 
+import com.github.vendigo.charon.converter.ConvertFunction;
+
 import java.text.SimpleDateFormat;
 
 public enum ColumnType {
