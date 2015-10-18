@@ -6,7 +6,8 @@ import org.springframework.stereotype.Component;
 @Component("columnValidator")
 public class ColumnValidator {
     public boolean validate(Column column, String stringValue) {
-        return false;
+        return column.getValidationConstraints().stream().allMatch(c->c.getValidateFunction().validate(stringValue,
+                column.getMaxLength()));
     }
 
 }

@@ -1,12 +1,16 @@
 package com.github.vendigo.charon.parser;
 
+import com.github.vendigo.charon.validation.ValidationConstraint;
+
+import java.util.HashSet;
+import java.util.Set;
+
 public class Column {
     private String name;
     private ColumnType columnType;
-    private boolean nullable = true;
-    private Integer maxLength;
-    private Integer fixedLength;
     private String dateFormat;
+    private Integer maxLength;
+    private Set<ValidationConstraint> validationConstraints = new HashSet<>();
 
     public Column(String name, ColumnType columnType) {
         this.name = name;
@@ -29,12 +33,12 @@ public class Column {
         this.columnType = columnType;
     }
 
-    public boolean isNullable() {
-        return nullable;
+    public String getDateFormat() {
+        return dateFormat;
     }
 
-    public void setNullable(boolean nullable) {
-        this.nullable = nullable;
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
     }
 
     public Integer getMaxLength() {
@@ -45,20 +49,12 @@ public class Column {
         this.maxLength = maxLength;
     }
 
-    public Integer getFixedLength() {
-        return fixedLength;
+    public Set<ValidationConstraint> getValidationConstraints() {
+        return validationConstraints;
     }
 
-    public void setFixedLength(Integer fixedLength) {
-        this.fixedLength = fixedLength;
-    }
-
-    public String getDateFormat() {
-        return dateFormat;
-    }
-
-    public void setDateFormat(String dateFormat) {
-        this.dateFormat = dateFormat;
+    public void setValidationConstraints(Set<ValidationConstraint> validationConstraints) {
+        this.validationConstraints = validationConstraints;
     }
 
     @Override
@@ -66,10 +62,9 @@ public class Column {
         return "Column{" +
                 "name='" + name + '\'' +
                 ", columnType=" + columnType +
-                ", nullable=" + nullable +
-                ", maxLength=" + maxLength +
-                ", fixedLength=" + fixedLength +
                 ", dateFormat='" + dateFormat + '\'' +
+                ", maxLength=" + maxLength +
+                ", validationConstraints=" + validationConstraints +
                 '}';
     }
 }

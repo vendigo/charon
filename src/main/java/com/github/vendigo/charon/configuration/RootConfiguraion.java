@@ -51,7 +51,7 @@ public class RootConfiguraion {
         entityManagerFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         Properties properties = new Properties();
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
-        properties.setProperty("hibernate.hbm2ddl.auto", "create");
+        properties.setProperty("hibernate.hbm2ddl.auto", "false");
         entityManagerFactory.setJpaProperties(properties);
         entityManagerFactory.setPackagesToScan("com.github.vendigo.charon");
 
@@ -79,15 +79,15 @@ public class RootConfiguraion {
         return springTransactionPolicy;
     }
 
-    @Value("classpath:schema.sql")
-    private Resource schemaScript;
+    @Value("classpath:clearData.sql")
+    private Resource sqlScript;
 
-    @Bean
+    //@Bean
     public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
         DataSourceInitializer initializer = new DataSourceInitializer();
         initializer.setDataSource(dataSource);
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-        populator.addScript(schemaScript);
+        populator.addScript(sqlScript);
         initializer.setDatabasePopulator(populator);
         return initializer;
     }

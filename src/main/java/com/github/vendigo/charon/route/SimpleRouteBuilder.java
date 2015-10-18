@@ -9,10 +9,12 @@ public class SimpleRouteBuilder extends RouteBuilder {
 
     private AppProperties appProperties;
     private FileConfiguration fileConf;
+    SqlEndpointConfigurer sqlEndpointConfigurer;
 
     public SimpleRouteBuilder(AppProperties appProperties, FileConfiguration fileConf) {
         this.appProperties = appProperties;
         this.fileConf = fileConf;
+        this.sqlEndpointConfigurer = new SqlEndpointConfigurer(fileConf);
     }
 
     private CsvDataFormat csvDataFormat() {
@@ -22,11 +24,6 @@ public class SimpleRouteBuilder extends RouteBuilder {
         dataFormat.setUseMaps(true);
         dataFormat.setIgnoreEmptyLines(true);
         return dataFormat;
-    }
-
-    private String sqlRawTableEndpoint() {
-        String template = "sql:%s?dataSource=#dataSource&batch=true";
-        return String.format(template, new PreparedStatementCreator(fileConf).insertRawRow());
     }
 
     @Override
@@ -42,8 +39,19 @@ public class SimpleRouteBuilder extends RouteBuilder {
 
         from("direct:saveRawRecords").
                 transacted("springTransactionPolicy").
-                to(sqlRawTableEndpoint()).
-                beanRef("castRows").
-                beanRef("sout");
+                to(sqlEndpointConfigurer.insert(fileConf.getRawTableName())).
+                beanRef("validateAndCastRows").
+                multicast().
+                to("direct:saveParsed", "direct:saveHist");
+
+        from("direct:saveParsed").
+                transacted("springTransactionPolicy").
+                to(sqlEndpointConfigurer.clear(fileConf.getParsedTableName())).
+                to(sqlEndpointConfigurer.insert(fileConf.getParsedTableName()));
+
+        from("direct:saveHist").
+                transacted("springTransactionPolicy").
+                to(sqlEndpointConfigurer.insert(fileConf.getHistTableName()));
+
     }
 }

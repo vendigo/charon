@@ -1,12 +1,12 @@
 package com.github.vendigo.charon.validation;
 
-public enum ValidationConstraints {
+public enum ValidationConstraint {
     NOT_NULL((s,p)->s!=null&&!s.isEmpty()),
-    NOT_LONGER((s,p)->s.length()<=(Integer)p);
+    NOT_LONGER((s,p)->s==null||s.length()<=(Integer)p);
 
     private final ValidateFunction validateFunction;
 
-    ValidationConstraints(ValidateFunction validateFunction) {
+    ValidationConstraint(ValidateFunction validateFunction) {
         this.validateFunction = validateFunction;
     }
 
