@@ -5,17 +5,13 @@ import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.init.DataSourceInitializer;
-import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
-import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
@@ -25,25 +21,36 @@ import java.util.Properties;
 @EnableJpaRepositories(basePackages = {"com.github.vendigo.charon"})
 public class RootConfiguraion {
 
+    @Value("${sql.driverClassName}")
+    private String sqlDriverClassName;
+    @Value("${sql.url}")
+    private String sqlUrl;
+    @Value("${sql.username}")
+    private String sqlUserName;
+    @Value("${sql.password}")
+    private String sqlPassword;
+    @Value("${sql.validationQuery}")
+    private String validationQuery;
+
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
     @Bean
-    public static DriverManagerDataSource dataSource() {
+    public DriverManagerDataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
-        dataSource.setUrl("jdbc:hsqldb:hsql://localhost:9001/dev;ifexist=true");
-        dataSource.setUsername("SA");
-        dataSource.setPassword("");
+        dataSource.setDriverClassName(sqlDriverClassName);
+        dataSource.setUrl(sqlUrl);
+        dataSource.setUsername(sqlUserName);
+        dataSource.setPassword(sqlPassword);
 
         return dataSource;
     }
 
     @Bean
-    public static LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
 
         entityManagerFactory.setDataSource(dataSource());
@@ -59,36 +66,23 @@ public class RootConfiguraion {
     }
 
     @Bean
-    public static JpaTransactionManager transactionManager() {
+    public JpaTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return transactionManager;
     }
 
     @Bean
-    public static DataSourceTransactionManager dataSourceTransactionManager() {
+    public DataSourceTransactionManager dataSourceTransactionManager() {
         DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
         transactionManager.setDataSource(dataSource());
         return transactionManager;
     }
 
     @Bean
-    public static SpringTransactionPolicy springTransactionPolicy() {
+    public SpringTransactionPolicy springTransactionPolicy() {
         SpringTransactionPolicy springTransactionPolicy = new SpringTransactionPolicy();
         springTransactionPolicy.setTransactionManager(dataSourceTransactionManager());
         return springTransactionPolicy;
-    }
-
-    @Value("classpath:schema.sql")
-    private Resource sqlScript;
-
-    @Bean
-    public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
-        DataSourceInitializer initializer = new DataSourceInitializer();
-        initializer.setDataSource(dataSource);
-        ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-        populator.addScript(sqlScript);
-        initializer.setDatabasePopulator(populator);
-        return initializer;
     }
 }

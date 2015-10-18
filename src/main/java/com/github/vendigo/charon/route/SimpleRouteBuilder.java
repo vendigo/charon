@@ -28,9 +28,10 @@ public class SimpleRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        //TODO Return file moving
-        //String pattern = "file://%1$s?move=%2$s&moveFailed=%3$s";
-        fromF("file://%1$s?noop=true&fileName=%2$s", appProperties.getInFolder(), fileConf.getFileNamePattern()).
+        fromF("file://%1$s?move=%2$s&moveFailed=%3$s&fileName=%4$s", appProperties.getInFolder(),
+                appProperties.getOutFolder(),
+                appProperties.getFailedFolder(),
+                fileConf.getFileNamePattern()).
                 beanRef("registerFile").
                 split().tokenize("\n", appProperties.getChunkSize()).streaming().parallelProcessing().
                 unmarshal(csvDataFormat()).
@@ -46,7 +47,6 @@ public class SimpleRouteBuilder extends RouteBuilder {
 
         from("direct:saveParsed").
                 transacted("springTransactionPolicy").
-                to(sqlEndpointConfigurer.clear(fileConf.getParsedTableName())).
                 to(sqlEndpointConfigurer.insert(fileConf.getParsedTableName()));
 
         from("direct:saveHist").
