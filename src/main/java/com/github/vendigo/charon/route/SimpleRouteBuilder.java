@@ -17,7 +17,7 @@ public class SimpleRouteBuilder extends RouteBuilder {
 
     private CsvDataFormat csvDataFormat() {
         CsvDataFormat dataFormat = new CsvDataFormat();
-        dataFormat.setHeader(fileConf.getColumnNames());
+        dataFormat.setHeader(fileConf.getFileColumnNames());
         dataFormat.setDelimiter(fileConf.getDelimiter());
         dataFormat.setUseMaps(true);
         dataFormat.setIgnoreEmptyLines(true);
@@ -37,12 +37,13 @@ public class SimpleRouteBuilder extends RouteBuilder {
                 beanRef("registerFile").
                 split().tokenize("\n", appProperties.getChunkSize()).streaming().parallelProcessing().
                 unmarshal(csvDataFormat()).
-                beanRef("prepareRawRow").
+                beanRef("addUtilityColumns").
                 to("direct:saveRawRecords");
 
         from("direct:saveRawRecords").
                 transacted("springTransactionPolicy").
                 to(sqlRawTableEndpoint()).
+                beanRef("castRows").
                 beanRef("sout");
     }
 }

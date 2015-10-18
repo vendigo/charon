@@ -1,7 +1,6 @@
 package com.github.vendigo.charon.parser;
 
 public class Column {
-    private int position;
     private String name;
     private ColumnType columnType;
     private boolean nullable = true;
@@ -9,18 +8,9 @@ public class Column {
     private Integer fixedLength;
     private String dateFormat;
 
-    public Column(int position, String name, ColumnType columnType) {
-        this.position = position;
+    public Column(String name, ColumnType columnType) {
         this.name = name;
         this.columnType = columnType;
-    }
-
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
     }
 
     public String getName() {
@@ -69,5 +59,17 @@ public class Column {
 
     public void setDateFormat(String dateFormat) {
         this.dateFormat = dateFormat;
+    }
+
+    @Override
+    public String toString() {
+        return "Column{" +
+                "name='" + name + '\'' +
+                ", columnType=" + columnType +
+                ", nullable=" + nullable +
+                ", maxLength=" + maxLength +
+                ", fixedLength=" + fixedLength +
+                ", dateFormat='" + dateFormat + '\'' +
+                '}';
     }
 }

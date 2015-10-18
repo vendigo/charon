@@ -6,20 +6,17 @@
        <bean id="sampleFileConfig" class="com.github.vendigo.charon.parser.FileConfiguration">
               <constructor-arg name="configName" value="sample"/>
               <constructor-arg name="fileNamePattern" value="sample.csv"/>
-              <constructor-arg name="columns">
+              <constructor-arg name="fileColumns">
                      <list>
                             <bean class="com.github.vendigo.charon.parser.Column">
-                                   <constructor-arg name="position" value="1"/>
                                    <constructor-arg name="name" value="id"/>
                                    <constructor-arg name="columnType" value="INT"/>
                             </bean>
                             <bean class="com.github.vendigo.charon.parser.Column">
-                                   <constructor-arg name="position" value="2"/>
                                    <constructor-arg name="name" value="name"/>
                                    <constructor-arg name="columnType" value="STRING"/>
                             </bean>
                             <bean class="com.github.vendigo.charon.parser.Column">
-                                   <constructor-arg name="position" value="3"/>
                                    <constructor-arg name="name" value="age"/>
                                    <constructor-arg name="columnType" value="INT"/>
                             </bean>

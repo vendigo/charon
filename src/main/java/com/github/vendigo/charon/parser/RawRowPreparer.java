@@ -5,21 +5,19 @@ import org.apache.camel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@Component("prepareRawRow")
+@Component("addUtilityColumns")
 public class RawRowPreparer {
     @Autowired
     AppProperties appProperties;
 
     @Handler
     public void prepareRawRow(@Body List<Map<String, String>> chunk, @ExchangeProperty("CamelSplitIndex") int chunkNum,
-                              @Headers() Map<String, Object> headers) {
-        //TODO Add Header Wrapper class
-        Long fileId = (Long)headers.get("fileId");
-        FileConfiguration fileConf = (FileConfiguration)headers.get("fileConfiguration");
+                              @Header("fileId") Long fileId) {
         addFileIdAndLineNumber(chunk, chunkNum, fileId);
     }
 

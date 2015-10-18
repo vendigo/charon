@@ -32,7 +32,7 @@ public class FileRegistrator {
         InFileStatus inFileStatus = new InFileStatus(fileId, FileState.FOUND);
         inFileStatusRepository.save(inFileStatus);
 
-        //TODO Extract header names to constants
+        //TODO Extract header names to constants, headers wrapper
         headers.put("fileId", fileId);
         headers.put("fileState", FileState.FOUND);
 
