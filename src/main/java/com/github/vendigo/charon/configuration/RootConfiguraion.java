@@ -79,10 +79,10 @@ public class RootConfiguraion {
         return springTransactionPolicy;
     }
 
-    @Value("classpath:clearData.sql")
+    @Value("classpath:schema.sql")
     private Resource sqlScript;
 
-    //@Bean
+    @Bean
     public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
         DataSourceInitializer initializer = new DataSourceInitializer();
         initializer.setDataSource(dataSource);
