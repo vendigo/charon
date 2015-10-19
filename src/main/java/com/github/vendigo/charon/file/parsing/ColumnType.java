@@ -1,6 +1,6 @@
-package com.github.vendigo.charon.parser;
+package com.github.vendigo.charon.file.parsing;
 
-import com.github.vendigo.charon.converter.ConvertFunction;
+import com.github.vendigo.charon.row.conversion.ConvertFunction;
 
 import java.text.SimpleDateFormat;
 

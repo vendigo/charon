@@ -1,4 +1,4 @@
-package com.github.vendigo.charon.parser;
+package com.github.vendigo.charon.row;
 
 import com.github.vendigo.charon.configuration.AppProperties;
 import org.apache.camel.*;

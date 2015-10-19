@@ -1,13 +1,10 @@
 package com.github.vendigo.charon.utils;
 
-import com.github.vendigo.charon.parser.FileConfiguration;
+import com.github.vendigo.charon.file.parsing.FileConfiguration;
 import org.apache.camel.Body;
 import org.apache.camel.Handler;
 import org.apache.camel.Header;
-import org.apache.camel.Headers;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 @Component("sout")
 public class Sout {

@@ -1,4 +1,4 @@
-package com.github.vendigo.charon.file;
+package com.github.vendigo.charon.file.registration;
 
 import javax.persistence.*;
 import java.util.Date;

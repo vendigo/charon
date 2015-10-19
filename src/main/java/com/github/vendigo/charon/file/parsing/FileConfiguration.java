@@ -1,4 +1,4 @@
-package com.github.vendigo.charon.parser;
+package com.github.vendigo.charon.file.parsing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,7 @@ public class FileConfiguration {
     private String parsedTableName;
     private String histTableName;
     private String insertRawParams;
+    private boolean hasHeader = false;
 
     public FileConfiguration(String configName, String fileNamePattern, List<Column> fileColumns) {
         //TODO Add Validation
@@ -100,6 +101,14 @@ public class FileConfiguration {
 
     public void setInsertRawParams(String insertRawParams) {
         this.insertRawParams = insertRawParams;
+    }
+
+    public boolean isHasHeader() {
+        return hasHeader;
+    }
+
+    public void setHasHeader(boolean hasHeader) {
+        this.hasHeader = hasHeader;
     }
 
     @Override

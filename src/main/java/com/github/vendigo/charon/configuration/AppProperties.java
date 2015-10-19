@@ -15,6 +15,8 @@ public class AppProperties {
     private int chunkSize;
     @Value("${threads.count}")
     private int threadsCount;
+    @Value("${business.date}")
+    private String businessDate;
 
     public String getInFolder() {
         return inFolder;
@@ -34,5 +36,9 @@ public class AppProperties {
 
     public int getThreadsCount() {
         return threadsCount;
+    }
+
+    public String getBusinessDate() {
+        return businessDate;
     }
 }

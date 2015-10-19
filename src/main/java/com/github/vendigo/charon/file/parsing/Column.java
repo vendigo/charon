@@ -1,6 +1,6 @@
-package com.github.vendigo.charon.parser;
+package com.github.vendigo.charon.file.parsing;
 
-import com.github.vendigo.charon.validation.ValidationConstraint;
+import com.github.vendigo.charon.row.validation.ValidationConstraint;
 
 import java.util.HashSet;
 import java.util.Set;

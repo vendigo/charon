@@ -1,6 +1,6 @@
-package com.github.vendigo.charon.file;
+package com.github.vendigo.charon.file.registration;
 
-import com.github.vendigo.charon.parser.FileConfiguration;
+import com.github.vendigo.charon.file.parsing.FileConfiguration;
 import org.apache.camel.Body;
 import org.apache.camel.Handler;
 import org.apache.camel.Headers;

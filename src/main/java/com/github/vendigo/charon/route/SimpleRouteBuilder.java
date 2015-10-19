@@ -1,7 +1,7 @@
 package com.github.vendigo.charon.route;
 
 import com.github.vendigo.charon.configuration.AppProperties;
-import com.github.vendigo.charon.parser.FileConfiguration;
+import com.github.vendigo.charon.file.parsing.FileConfiguration;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.CsvDataFormat;
 
@@ -40,12 +40,18 @@ public class SimpleRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        fromF("file://%1$s?move=%2$s&moveFailed=%3$s&fileName=%4$s",
+        fromF("file://%1$s?move=%2$s&moveFailed=%3$s&fileName=%4$s&idempotent=true",
                 appProperties.getInFolder(),
                 appProperties.getOutFolder(),
                 appProperties.getFailedFolder(),
                 fileConf.getFileNamePattern()).
                 beanRef("registerFile").
+                beanRef("checkBusinessDate").
+                choice().when(header("apropriateBusinessDate").isEqualTo(true)).
+                to(directEndpoint(fileConf, "processFile"));
+
+
+        from(directEndpoint(fileConf, "processFile")).
                 split().tokenize("\n", appProperties.getChunkSize()).streaming().
                 executorService(threadPool()).
                 unmarshal(csvDataFormat()).

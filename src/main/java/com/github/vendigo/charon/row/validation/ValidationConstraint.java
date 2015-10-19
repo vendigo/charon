@@ -1,4 +1,4 @@
-package com.github.vendigo.charon.validation;
+package com.github.vendigo.charon.row.validation;
 
 public enum ValidationConstraint {
     NOT_NULL((s,c)->s!=null&&!s.isEmpty()),

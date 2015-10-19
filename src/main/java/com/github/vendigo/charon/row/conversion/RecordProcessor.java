@@ -1,8 +1,8 @@
-package com.github.vendigo.charon.converter;
+package com.github.vendigo.charon.row.conversion;
 
-import com.github.vendigo.charon.parser.Column;
-import com.github.vendigo.charon.parser.FileConfiguration;
-import com.github.vendigo.charon.validation.ColumnValidator;
+import com.github.vendigo.charon.file.parsing.Column;
+import com.github.vendigo.charon.file.parsing.FileConfiguration;
+import com.github.vendigo.charon.row.validation.ColumnValidator;
 import org.apache.camel.Body;
 import org.apache.camel.Handler;
 import org.apache.camel.Header;

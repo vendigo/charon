@@ -1,6 +1,6 @@
 package com.github.vendigo.charon.configuration;
 
-import com.github.vendigo.charon.parser.FileConfiguration;
+import com.github.vendigo.charon.file.parsing.FileConfiguration;
 import com.github.vendigo.charon.route.SimpleRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.spring.javaconfig.CamelConfiguration;
