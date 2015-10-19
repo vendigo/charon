@@ -12,7 +12,7 @@ public class ColumnConverter {
     private Logger log = LoggerFactory.getLogger(ColumnConverter.class);
 
     private Object performConversion(Column column, String stringValue) throws Exception {
-        return column.getColumnType().getConversion().convert(stringValue, column.getDateFormat());
+        return column.getColumnType().getConversion().convert(stringValue, column);
     }
 
     public Optional convertColumn(Column column, String stringValue) {

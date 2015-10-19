@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class ColumnValidator {
     public boolean validate(Column column, String stringValue) {
         return column.getValidationConstraints().stream().allMatch(c->c.getValidateFunction().validate(stringValue,
-                column.getMaxLength()));
+                column));
     }
 
 }

@@ -76,6 +76,12 @@
             <artifactId>hsqldb</artifactId>
             <version>2.3.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+
 
         <!-- Logging -->
         <dependency>
@@ -129,7 +135,6 @@
                 <artifactId>camel-maven-plugin</artifactId>
                 <version>${camel.version}</version>
                 <configuration>
-                    <duration>5s</duration>
                     <configClasses>com.github.vendigo.charon.configuration.RouteConfig</configClasses>
                 </configuration>
             </plugin>

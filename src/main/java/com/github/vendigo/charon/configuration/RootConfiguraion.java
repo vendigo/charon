@@ -1,6 +1,7 @@
 package com.github.vendigo.charon.configuration;
 
 import org.apache.camel.spring.spi.SpringTransactionPolicy;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
@@ -12,6 +13,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
+import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
@@ -37,14 +39,15 @@ public class RootConfiguraion {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
-    @Bean
-    public DriverManagerDataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    @Bean(destroyMethod = "close")
+    public DataSource dataSource() {
+        BasicDataSource dataSource = new BasicDataSource();
 
         dataSource.setDriverClassName(sqlDriverClassName);
         dataSource.setUrl(sqlUrl);
         dataSource.setUsername(sqlUserName);
         dataSource.setPassword(sqlPassword);
+        dataSource.setValidationQuery(validationQuery);
 
         return dataSource;
     }

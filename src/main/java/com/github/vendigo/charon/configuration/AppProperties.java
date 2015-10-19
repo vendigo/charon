@@ -11,9 +11,10 @@ public class AppProperties {
     private String outFolder;
     @Value("${files.dir.failed}")
     private String failedFolder;
-
-    @Value("${chunksize}")
+    @Value("${chunk.size}")
     private int chunkSize;
+    @Value("${threads.count}")
+    private int threadsCount;
 
     public String getInFolder() {
         return inFolder;
@@ -29,5 +30,9 @@ public class AppProperties {
 
     public int getChunkSize() {
         return chunkSize;
+    }
+
+    public int getThreadsCount() {
+        return threadsCount;
     }
 }

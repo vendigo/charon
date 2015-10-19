@@ -1,8 +1,8 @@
 package com.github.vendigo.charon.validation;
 
 public enum ValidationConstraint {
-    NOT_NULL((s,p)->s!=null&&!s.isEmpty()),
-    NOT_LONGER((s,p)->s==null||s.length()<=(Integer)p);
+    NOT_NULL((s,c)->s!=null&&!s.isEmpty()),
+    NOT_LONGER((s,c)->s==null||s.length()<=c.getMaxLength());
 
     private final ValidateFunction validateFunction;
 
