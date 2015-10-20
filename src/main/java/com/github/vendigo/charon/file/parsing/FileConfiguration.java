@@ -16,6 +16,9 @@ public class FileConfiguration {
     private String histTableName;
     private String insertRawParams;
     private boolean hasHeader = false;
+    private boolean hasFooter = false;
+    private volatile String footer;
+    private volatile String header;
 
     public FileConfiguration(String configName, String fileNamePattern, List<Column> fileColumns) {
         //TODO Add Validation
@@ -111,17 +114,27 @@ public class FileConfiguration {
         this.hasHeader = hasHeader;
     }
 
-    @Override
-    public String toString() {
-        return "FileConfiguration{" +
-                "configName='" + configName + '\'' +
-                ", fileNamePattern='" + fileNamePattern + '\'' +
-                ", delimiter='" + delimiter + '\'' +
-                ", allColumns=" + allColumns +
-                ", rawTableName='" + rawTableName + '\'' +
-                ", parsedTableName='" + parsedTableName + '\'' +
-                ", histTableName='" + histTableName + '\'' +
-                ", insertRawParams='" + insertRawParams + '\'' +
-                '}';
+    public boolean isHasFooter() {
+        return hasFooter;
+    }
+
+    public void setHasFooter(boolean hasFooter) {
+        this.hasFooter = hasFooter;
+    }
+
+    public String getFooter() {
+        return footer;
+    }
+
+    public void setFooter(String footer) {
+        this.footer = footer;
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
     }
 }

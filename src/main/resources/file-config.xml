@@ -82,5 +82,7 @@
             </list>
         </constructor-arg>
         <property name="delimiter" value="|"/>
+        <property name="hasHeader" value="true" />
+        <property name="hasFooter" value="true" />
     </bean>
 </beans>
