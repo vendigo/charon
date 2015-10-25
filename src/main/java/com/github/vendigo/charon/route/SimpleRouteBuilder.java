@@ -2,8 +2,10 @@ package com.github.vendigo.charon.route;
 
 import com.github.vendigo.charon.configuration.AppProperties;
 import com.github.vendigo.charon.file.parsing.FileConfiguration;
+import com.github.vendigo.charon.row.ChunkAggregationStrategy;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.CsvDataFormat;
+import org.apache.camel.model.language.ConstantExpression;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -40,7 +42,7 @@ public class SimpleRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        fromF("file://%1$s?move=%2$s&moveFailed=%3$s&include=%4$s&idempotent=true",
+        fromF("file://%1$s?move=%2$s&moveFailed=%3$s&include=%4$s",
                 appProperties.getInFolder(),
                 appProperties.getOutFolder(),
                 appProperties.getFailedFolder(),
@@ -62,6 +64,8 @@ public class SimpleRouteBuilder extends RouteBuilder {
         from(directEndpoint(fileConf, "saveParsed")).
                 transacted("springTransactionPolicy").
                 to(sqlEndpointConfigurer.insert(fileConf.getParsedTableName())).
-                beanRef("sout");
+                aggregate(new ConstantExpression("expr"), new ChunkAggregationStrategy()).
+                completionTimeout(1000).
+                beanRef("validateFooter");
     }
 }
