@@ -11,6 +11,8 @@ public class InFileStatus {
     @Column
     private Long fileId;
     @Column
+    private String fileConfigName;
+    @Column
     @Enumerated(EnumType.STRING)
     private FileState state;
     private Date creationTime = new Date();
@@ -18,9 +20,10 @@ public class InFileStatus {
     public InFileStatus() {
     }
 
-    public InFileStatus(Long fileId, FileState state) {
+    public InFileStatus(Long fileId, FileState state, String fileConfigName) {
         this.fileId = fileId;
         this.state = state;
+        this.fileConfigName = fileConfigName;
     }
 
     public Long getFileStatusId() {
@@ -37,5 +40,20 @@ public class InFileStatus {
 
     public Date getCreationTime() {
         return creationTime;
+    }
+
+    public String getFileConfigName() {
+        return fileConfigName;
+    }
+
+    @Override
+    public String toString() {
+        return "InFileStatus{" +
+                "fileStatusId=" + fileStatusId +
+                ", fileId=" + fileId +
+                ", fileConfigName='" + fileConfigName + '\'' +
+                ", state=" + state +
+                ", creationTime=" + creationTime +
+                '}';
     }
 }

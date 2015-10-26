@@ -10,13 +10,13 @@ import org.apache.camel.model.language.ConstantExpression;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class SimpleRouteBuilder extends RouteBuilder {
+public class MainRouteBuilder extends RouteBuilder {
 
     private AppProperties appProperties;
     private FileConfiguration fileConf;
     SqlEndpointConfigurer sqlEndpointConfigurer;
 
-    public SimpleRouteBuilder(AppProperties appProperties, FileConfiguration fileConf) {
+    public MainRouteBuilder(AppProperties appProperties, FileConfiguration fileConf) {
         this.appProperties = appProperties;
         this.fileConf = fileConf;
         this.sqlEndpointConfigurer = new SqlEndpointConfigurer(fileConf);
@@ -42,10 +42,7 @@ public class SimpleRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        fromF("file://%1$s?move=%2$s&moveFailed=%3$s&include=%4$s",
-                appProperties.getInFolder(),
-                appProperties.getOutFolder(),
-                appProperties.getFailedFolder(),
+        fromF("file://%1$s?&include=%1$s&noop=true",
                 fileConf.getFileNamePattern()).
                 beanRef("registerFile").
                 split().tokenize(appProperties.getEndOfLine(), appProperties.getChunkSize()).streaming().

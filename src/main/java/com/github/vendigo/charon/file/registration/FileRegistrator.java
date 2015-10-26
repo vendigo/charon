@@ -29,9 +29,6 @@ public class FileRegistrator {
         inFileRepository.save(inFile);
         Long fileId = inFile.getFileId();
 
-        InFileStatus inFileStatus = new InFileStatus(fileId, FileState.FOUND);
-        inFileStatusRepository.save(inFileStatus);
-
         //TODO Extract header names to constants, headers wrapper
         headers.put("fileId", fileId);
         headers.put("fileState", FileState.FOUND);
@@ -39,6 +36,9 @@ public class FileRegistrator {
         Optional<FileConfiguration> fileConfiguration = findFileConfiguration(file.getFileName());
         if (fileConfiguration.isPresent()) {
             headers.put("fileConfiguration", fileConfiguration.get());
+
+            InFileStatus inFileStatus = new InFileStatus(fileId, FileState.FOUND, fileConfiguration.get().getConfigName());
+            inFileStatusRepository.save(inFileStatus);
         }
 
         //TODO Else throw exception

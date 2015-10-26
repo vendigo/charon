@@ -42,6 +42,11 @@
             <artifactId>camel-sql</artifactId>
             <version>${camel.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jpa</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
 
         <!--Spring-->
         <dependency>

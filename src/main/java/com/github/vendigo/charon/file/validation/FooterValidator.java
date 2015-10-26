@@ -5,6 +5,7 @@ import com.github.vendigo.charon.file.registration.FileState;
 import com.github.vendigo.charon.file.registration.InFileStatus;
 import com.github.vendigo.charon.file.registration.InFileStatusRepository;
 import org.apache.camel.Body;
+import org.apache.camel.Exchange;
 import org.apache.camel.Handler;
 import org.apache.camel.Header;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +22,18 @@ public class FooterValidator {
 
     @Handler
     public void validateFooter(@Body List<Map<String, Object>> data, @Header("fileConfiguration") FileConfiguration fileConf,
-                               @Header("fileId") long fileId) {
+                               @Header("fileId") long fileId, Exchange exchange) {
         String footer = fileConf.getFooter();
         int lineCount = extractLineCount(fileConf, footer);
 
-        InFileStatus inFileStatus = new InFileStatus(fileId, determineFileState(data.size(), lineCount));
+        InFileStatus inFileStatus = new InFileStatus(fileId, determineFileState(data.size(), lineCount), fileConf.getConfigName());
         inFileStatusRepository.save(inFileStatus);
-        failRouteIfNeed(inFileStatus);
+        failRouteIfNeed(inFileStatus, exchange);
     }
 
-    private void failRouteIfNeed(InFileStatus inFileStatus) {
+    private void failRouteIfNeed(InFileStatus inFileStatus, Exchange exchange) {
         if (inFileStatus.getState() == FileState.FAILED) {
-            throw new FooterValidationException("Wrong lineCount");
+            exchange.setException(new FooterValidationException("Wrong lineCount"));
         }
     }
 
