@@ -1,4 +1,4 @@
-package com.github.vendigo.charon.route.rollback;
+package com.github.vendigo.charon.route;
 
 import com.github.vendigo.charon.configuration.FileConfigurations;
 import com.github.vendigo.charon.file.parsing.FileConfiguration;
@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 import java.util.Optional;
 
-@Component("findParsedTableName")
-public class RollbackMessageEnricher {
+@Component("findTableNames")
+public class TableNamesLookup {
 
     @Autowired
     InFileRepository inFileRepository;
@@ -26,7 +26,8 @@ public class RollbackMessageEnricher {
         Optional<FileConfiguration> fileConfigurationOptional = fileConfigurations.findByFileId(inFileStatus.getFileId());
         if (fileConfigurationOptional.isPresent()) {
             FileConfiguration fileConfiguration = fileConfigurationOptional.get();
-            headers.put(HeaderNames.TABLE_NAME, fileConfiguration.getParsedTableName());
+            headers.put(HeaderNames.PARSED_TABLE_NAME, fileConfiguration.getParsedTableName());
+            headers.put(HeaderNames.HIST_TABLE_NAME, fileConfiguration.getHistTableName());
         }
     }
 }
