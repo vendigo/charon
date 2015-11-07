@@ -11,6 +11,7 @@ public class RollbackRouteBuilder extends RouteBuilder {
                 "from com.github.vendigo.charon.file.registration.InFileStatus o " +
                 "where o.state='FAILED' and o.processed=false").
                 beanRef("findTableNames").
-                beanRef("dataArchiver", "cleanUpParsedTable");
+                beanRef("dataArchiver", "revertParsedTable").
+                beanRef("createInFileStatus", "reverted");
     }
 }

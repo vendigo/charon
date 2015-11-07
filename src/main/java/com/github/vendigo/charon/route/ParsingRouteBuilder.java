@@ -2,6 +2,7 @@ package com.github.vendigo.charon.route;
 
 import com.github.vendigo.charon.configuration.AppProperties;
 import com.github.vendigo.charon.file.parsing.FileConfiguration;
+import com.github.vendigo.charon.route.helpers.SqlEndpointConfigurer;
 import com.github.vendigo.charon.row.ChunkAggregationStrategy;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.CsvDataFormat;
@@ -10,14 +11,14 @@ import org.apache.camel.model.language.ConstantExpression;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MainRouteBuilder extends RouteBuilder {
+public class ParsingRouteBuilder extends RouteBuilder {
 
     public static final int ONE_SECOND = 1000;
     private AppProperties appProperties;
     private FileConfiguration fileConf;
     SqlEndpointConfigurer sqlEndpointConfigurer;
 
-    public MainRouteBuilder(AppProperties appProperties, FileConfiguration fileConf) {
+    public ParsingRouteBuilder(AppProperties appProperties, FileConfiguration fileConf) {
         this.appProperties = appProperties;
         this.fileConf = fileConf;
         this.sqlEndpointConfigurer = new SqlEndpointConfigurer(fileConf);

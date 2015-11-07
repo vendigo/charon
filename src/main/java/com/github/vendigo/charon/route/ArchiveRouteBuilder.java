@@ -11,6 +11,7 @@ public class ArchiveRouteBuilder extends RouteBuilder {
                 "where o.state='PARSED' and o.processed=false").
                 beanRef("findTableNames").
                 beanRef("dataArchiver", "moveDataToHist").
-                beanRef("dataArchiver", "cleanUpParsedTable");
+                beanRef("dataArchiver", "cleanUpArchivedData").
+                beanRef("createInFileStatus", "archived");
     }
 }

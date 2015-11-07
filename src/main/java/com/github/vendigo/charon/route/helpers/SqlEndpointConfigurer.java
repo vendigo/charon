@@ -1,4 +1,4 @@
-package com.github.vendigo.charon.route;
+package com.github.vendigo.charon.route.helpers;
 
 import com.github.vendigo.charon.file.parsing.FileConfiguration;
 
