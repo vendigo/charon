@@ -1,5 +1,6 @@
 package com.github.vendigo.charon.file.registration;
 
+import com.github.vendigo.charon.configuration.FileConfigurations;
 import com.github.vendigo.charon.file.parsing.FileConfiguration;
 import org.apache.camel.Body;
 import org.apache.camel.Handler;
@@ -20,31 +21,26 @@ public class FileRegistrator {
     @Autowired
     InFileStatusRepository inFileStatusRepository;
     @Autowired
-    List<FileConfiguration> fileConfigurations;
+    FileConfigurations fileConfigurations;
 
     @Handler
     public void registerFile(@Body GenericFile<File> file, @Headers Map<String, Object> headers) {
-        InFile inFile = new InFile(file.getFileName(), file.getAbsoluteFilePath(), file.getFileLength());
-
-        inFileRepository.save(inFile);
-        Long fileId = inFile.getFileId();
-
-        //TODO Extract header names to constants, headers wrapper
-        headers.put("fileId", fileId);
-        headers.put("fileState", FileState.FOUND);
-
-        Optional<FileConfiguration> fileConfiguration = findFileConfiguration(file.getFileName());
+        Optional<FileConfiguration> fileConfiguration = fileConfigurations.findByFileName(file.getFileName());
         if (fileConfiguration.isPresent()) {
+            InFile inFile = new InFile(file.getFileName(), file.getAbsoluteFilePath(), file.getFileLength(),
+                    fileConfiguration.get().getConfigName());
+            inFileRepository.save(inFile);
+            Long fileId = inFile.getFileId();
+
+            headers.put("fileId", fileId);
+            headers.put("fileState", FileState.FOUND);
             headers.put("fileConfiguration", fileConfiguration.get());
 
-            InFileStatus inFileStatus = new InFileStatus(fileId, FileState.FOUND, fileConfiguration.get().getConfigName());
+            InFileStatus inFileStatus = new InFileStatus(fileId, FileState.FOUND);
             inFileStatusRepository.save(inFileStatus);
         }
 
+        //TODO Extract header names to constants, headers wrapper
         //TODO Else throw exception
-    }
-
-    private Optional<FileConfiguration> findFileConfiguration(String fileName) {
-        return fileConfigurations.stream().filter(conf -> fileName.matches(conf.getFileNamePattern())).findFirst();
     }
 }

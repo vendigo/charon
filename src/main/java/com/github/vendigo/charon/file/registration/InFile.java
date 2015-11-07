@@ -16,14 +16,17 @@ public class InFile {
     private String absoluteFilePath;
     @Column
     private Long fileLength;
+    @Column
+    private String fileConfigName;
 
     public InFile() {
     }
 
-    public InFile(String fileName, String absoluteFilePath, Long fileLength) {
+    public InFile(String fileName, String absoluteFilePath, Long fileLength, String fileConfigName) {
         this.fileName = fileName;
         this.absoluteFilePath = absoluteFilePath;
         this.fileLength = fileLength;
+        this.fileConfigName = fileConfigName;
     }
 
     public Long getFileId() {
@@ -40,5 +43,9 @@ public class InFile {
 
     public Long getFileLength() {
         return fileLength;
+    }
+
+    public String getFileConfigName() {
+        return fileConfigName;
     }
 }

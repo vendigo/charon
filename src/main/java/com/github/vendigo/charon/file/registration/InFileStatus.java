@@ -1,5 +1,7 @@
 package com.github.vendigo.charon.file.registration;
 
+import org.apache.camel.component.jpa.Consumed;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -11,19 +13,19 @@ public class InFileStatus {
     @Column
     private Long fileId;
     @Column
-    private String fileConfigName;
-    @Column
     @Enumerated(EnumType.STRING)
     private FileState state;
+    @Column
     private Date creationTime = new Date();
+    @Column
+    private boolean processed = false;
 
     public InFileStatus() {
     }
 
-    public InFileStatus(Long fileId, FileState state, String fileConfigName) {
+    public InFileStatus(Long fileId, FileState state) {
         this.fileId = fileId;
         this.state = state;
-        this.fileConfigName = fileConfigName;
     }
 
     public Long getFileStatusId() {
@@ -42,18 +44,12 @@ public class InFileStatus {
         return creationTime;
     }
 
-    public String getFileConfigName() {
-        return fileConfigName;
+    public boolean isProcessed() {
+        return processed;
     }
 
-    @Override
-    public String toString() {
-        return "InFileStatus{" +
-                "fileStatusId=" + fileStatusId +
-                ", fileId=" + fileId +
-                ", fileConfigName='" + fileConfigName + '\'' +
-                ", state=" + state +
-                ", creationTime=" + creationTime +
-                '}';
+    @Consumed
+    public void setProcessed() {
+        this.processed = true;
     }
 }

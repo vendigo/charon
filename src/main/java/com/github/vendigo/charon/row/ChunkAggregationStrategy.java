@@ -20,5 +20,7 @@ public class ChunkAggregationStrategy implements AggregationStrategy {
         List newBody = (List) newExchange.getIn().getBody();
         oldBody.addAll(newBody);
         return oldExchange;
+
+        //TODO Keep in agregation only number - count of processed records, also change in footer validator
     }
 }

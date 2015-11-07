@@ -15,7 +15,7 @@ public class InFileStatusRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testSaveGet() throws Exception {
-        InFileStatus fileStatus = new InFileStatus(1L, FileState.FOUND, "test");
+        InFileStatus fileStatus = new InFileStatus(1L, FileState.FOUND);
         inFileStatusRepository.save(fileStatus);
 
         assertThat(inFileStatusRepository.count(), equalTo(1L));

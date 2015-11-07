@@ -12,6 +12,7 @@ import java.util.concurrent.Executors;
 
 public class MainRouteBuilder extends RouteBuilder {
 
+    public static final int ONE_SECOND = 1000;
     private AppProperties appProperties;
     private FileConfiguration fileConf;
     SqlEndpointConfigurer sqlEndpointConfigurer;
@@ -62,7 +63,7 @@ public class MainRouteBuilder extends RouteBuilder {
                 transacted("springTransactionPolicy").
                 to(sqlEndpointConfigurer.insert(fileConf.getParsedTableName())).
                 aggregate(new ConstantExpression("expr"), new ChunkAggregationStrategy()).
-                completionTimeout(1000).
+                completionTimeout(ONE_SECOND).
                 beanRef("validateFooter");
     }
 }

@@ -26,7 +26,7 @@ public class FooterValidator {
         String footer = fileConf.getFooter();
         int lineCount = extractLineCount(fileConf, footer);
 
-        InFileStatus inFileStatus = new InFileStatus(fileId, determineFileState(data.size(), lineCount), fileConf.getConfigName());
+        InFileStatus inFileStatus = new InFileStatus(fileId, determineFileState(data.size(), lineCount));
         inFileStatusRepository.save(inFileStatus);
         failRouteIfNeed(inFileStatus, exchange);
     }
