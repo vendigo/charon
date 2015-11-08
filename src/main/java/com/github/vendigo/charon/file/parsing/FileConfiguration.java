@@ -19,6 +19,7 @@ public class FileConfiguration {
     private boolean hasFooter = false;
     private volatile String footer;
     private volatile String header;
+    private String entityFullName;
 
     public FileConfiguration(String configName, String fileNamePattern, List<Column> fileColumns) {
         //TODO Add Validation
@@ -136,5 +137,13 @@ public class FileConfiguration {
 
     public void setHeader(String header) {
         this.header = header;
+    }
+
+    public String getEntityFullName() {
+        return entityFullName;
+    }
+
+    public void setEntityFullName(String entityFullName) {
+        this.entityFullName = entityFullName;
     }
 }

@@ -84,5 +84,6 @@
         <property name="delimiter" value="|"/>
         <property name="hasHeader" value="true" />
         <property name="hasFooter" value="true" />
+        <property name="entityFullName" value="com.github.vendigo.charon.loading.Sample" />
     </bean>
 </beans>

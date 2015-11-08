@@ -2,6 +2,7 @@ package com.github.vendigo.charon.configuration;
 
 import com.github.vendigo.charon.file.parsing.FileConfiguration;
 import com.github.vendigo.charon.route.ArchiveRouteBuilder;
+import com.github.vendigo.charon.route.LoadRouteBuilder;
 import com.github.vendigo.charon.route.RollbackRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.spring.javaconfig.CamelConfiguration;
@@ -26,8 +27,10 @@ public class RouteConfig extends CamelConfiguration {
         List<RouteBuilder> routeBuilders = new ArrayList<>();
         //fileConfigurations.forEach(conf -> routeBuilders.add(new MainRouteBuilder(appProperties, conf)));
 
-        routeBuilders.add(new RollbackRouteBuilder());
-        routeBuilders.add(new ArchiveRouteBuilder());
+        //routeBuilders.add(new RollbackRouteBuilder());
+        //routeBuilders.add(new ArchiveRouteBuilder());
+        fileConfigurations.stream().filter(conf-> conf.getEntityFullName() != null).
+                forEach(conf -> routeBuilders.add(new LoadRouteBuilder(conf)));
         return routeBuilders;
     }
 }
