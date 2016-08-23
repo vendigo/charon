@@ -1,7 +1,7 @@
 package com.github.vendigo.charon.route;
 
 import com.github.vendigo.charon.configuration.AppProperties;
-import com.github.vendigo.charon.file.parsing.FileConfiguration;
+import com.github.vendigo.charon.routes.file.config.FileConfiguration;
 import com.github.vendigo.charon.route.helpers.SqlEndpointConfigurer;
 import com.github.vendigo.charon.row.ChunkAggregationStrategy;
 import org.apache.camel.builder.RouteBuilder;

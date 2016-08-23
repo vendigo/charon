@@ -1,7 +1,7 @@
-package com.github.vendigo.charon.file.validation;
+package com.github.vendigo.charon.routes.file.validation;
 
 import com.github.vendigo.charon.configuration.AppProperties;
-import com.github.vendigo.charon.file.parsing.FileConfiguration;
+import com.github.vendigo.charon.routes.file.config.FileConfiguration;
 import org.apache.camel.Body;
 import org.apache.camel.ExchangeProperty;
 import org.apache.camel.Header;

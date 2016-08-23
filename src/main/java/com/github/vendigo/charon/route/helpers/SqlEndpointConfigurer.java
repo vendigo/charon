@@ -1,6 +1,6 @@
 package com.github.vendigo.charon.route.helpers;
 
-import com.github.vendigo.charon.file.parsing.FileConfiguration;
+import com.github.vendigo.charon.routes.file.config.FileConfiguration;
 
 import static com.github.vendigo.charon.utils.JoinHelper.join;
 

@@ -1,9 +1,9 @@
 package com.github.vendigo.charon.route.helpers;
 
-import com.github.vendigo.charon.configuration.FileConfigurations;
-import com.github.vendigo.charon.file.parsing.FileConfiguration;
-import com.github.vendigo.charon.file.registration.InFileRepository;
-import com.github.vendigo.charon.file.registration.InFileStatus;
+import com.github.vendigo.charon.configuration.FileConfigurationsHolder;
+import com.github.vendigo.charon.routes.file.config.FileConfiguration;
+import com.github.vendigo.charon.routes.file.registration.InFileRepository;
+import com.github.vendigo.charon.routes.file.registration.InFileStatus;
 import com.github.vendigo.charon.utils.HeaderNames;
 import org.apache.camel.Handler;
 import org.apache.camel.Headers;
@@ -19,7 +19,7 @@ public class TableNamesLookup {
     @Autowired
     InFileRepository inFileRepository;
     @Autowired
-    FileConfigurations fileConfigurations;
+    FileConfigurationsHolder fileConfigurations;
 
     @Handler
     public void findFileInformation(InFileStatus inFileStatus, @Headers Map<String, Object> headers) {

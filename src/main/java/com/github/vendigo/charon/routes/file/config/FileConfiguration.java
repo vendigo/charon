@@ -1,16 +1,21 @@
-package com.github.vendigo.charon.file.parsing;
+package com.github.vendigo.charon.routes.file.config;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.github.vendigo.charon.utils.Validate2.notNullElements;
+import static org.apache.commons.lang3.Validate.notEmpty;
+import static org.apache.commons.lang3.Validate.notNull;
+
 public class FileConfiguration {
     private String configName;
     private String fileNamePattern;
-    private String delimiter = ",";
     private List<Column> fileColumns;
     private List<Column> allColumns;
+
+    private String delimiter = ",";
     private String rawTableName;
     private String parsedTableName;
     private String histTableName;
@@ -19,13 +24,12 @@ public class FileConfiguration {
     private boolean hasFooter = false;
     private volatile String footer;
     private volatile String header;
-    private String entityFullName;
+    private Class<?> entityClass;
 
     public FileConfiguration(String configName, String fileNamePattern, List<Column> fileColumns) {
-        //TODO Add Validation
-        this.configName = configName;
-        this.fileNamePattern = fileNamePattern;
-        this.fileColumns = fileColumns;
+        this.configName = notEmpty(configName, "configName must be not empty");
+        this.fileNamePattern = notEmpty(fileNamePattern, "fileNamePattern must be not empty");
+        this.fileColumns = notNullElements(fileColumns, "fileColumns");
         this.allColumns = collectAllColumns();
         this.rawTableName = configName.toUpperCase() + "_RAW";
         this.parsedTableName = configName.toUpperCase();
@@ -65,7 +69,7 @@ public class FileConfiguration {
     }
 
     public Column getColumnByName(String columnName) {
-        //TODO Add Validation
+        notEmpty(columnName, "columnName must be not empty");
         Optional<Column> result = allColumns.stream().filter(column -> columnName.equals(column.getName())).findFirst();
 
         if (result.isPresent()) {
@@ -97,14 +101,6 @@ public class FileConfiguration {
 
     public void setHistTableName(String histTableName) {
         this.histTableName = histTableName;
-    }
-
-    public String getInsertRawParams() {
-        return insertRawParams;
-    }
-
-    public void setInsertRawParams(String insertRawParams) {
-        this.insertRawParams = insertRawParams;
     }
 
     public boolean isHasHeader() {
@@ -139,11 +135,11 @@ public class FileConfiguration {
         this.header = header;
     }
 
-    public String getEntityFullName() {
-        return entityFullName;
+    public Class<?> getEntityClass() {
+        return entityClass;
     }
 
-    public void setEntityFullName(String entityFullName) {
-        this.entityFullName = entityFullName;
+    public void setEntityClass(Class<?> entityClass) {
+        this.entityClass = notNull(entityClass, "entityClass must be not null");
     }
 }

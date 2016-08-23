@@ -1,7 +1,7 @@
 package com.github.vendigo.charon.row.conversion;
 
-import com.github.vendigo.charon.file.parsing.Column;
-import com.github.vendigo.charon.file.parsing.FileConfiguration;
+import com.github.vendigo.charon.routes.file.config.Column;
+import com.github.vendigo.charon.routes.file.config.FileConfiguration;
 import com.github.vendigo.charon.row.validation.ColumnValidator;
 import org.apache.camel.Body;
 import org.apache.camel.Handler;

@@ -1,9 +1,9 @@
-package com.github.vendigo.charon.file.validation;
+package com.github.vendigo.charon.routes.file.validation;
 
-import com.github.vendigo.charon.file.parsing.FileConfiguration;
-import com.github.vendigo.charon.file.registration.FileState;
-import com.github.vendigo.charon.file.registration.InFileStatus;
-import com.github.vendigo.charon.file.registration.InFileStatusRepository;
+import com.github.vendigo.charon.routes.file.config.FileConfiguration;
+import com.github.vendigo.charon.routes.file.registration.FileState;
+import com.github.vendigo.charon.routes.file.registration.InFileStatus;
+import com.github.vendigo.charon.routes.file.registration.InFileStatusRepository;
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.camel.Handler;

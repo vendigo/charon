@@ -1,7 +1,8 @@
-package com.github.vendigo.charon.file.registration;
+package com.github.vendigo.charon.routes.file.registration;
 
-import com.github.vendigo.charon.configuration.FileConfigurations;
-import com.github.vendigo.charon.file.parsing.FileConfiguration;
+import com.github.vendigo.charon.configuration.BeansHolder;
+import com.github.vendigo.charon.configuration.FileConfigurationsHolder;
+import com.github.vendigo.charon.routes.file.config.FileConfiguration;
 import org.apache.camel.Body;
 import org.apache.camel.Handler;
 import org.apache.camel.Headers;
@@ -10,26 +11,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@Component("registerFile")
-public class FileRegistrator {
-    @Autowired
-    InFileRepository inFileRepository;
-    @Autowired
-    InFileStatusRepository inFileStatusRepository;
-    @Autowired
-    FileConfigurations fileConfigurations;
+import static org.apache.commons.lang3.Validate.notNull;
+
+public class FileRegistrationProcessor {
+
+    private final BeansHolder beansHolder;
+
+    public FileRegistrationProcessor(BeansHolder beansHolder) {
+        this.beansHolder = notNull(beansHolder, "beansHolder must be not null");
+    }
 
     @Handler
     public void registerFile(@Body GenericFile<File> file, @Headers Map<String, Object> headers) {
-        Optional<FileConfiguration> fileConfiguration = fileConfigurations.findByFileName(file.getFileName());
+        Optional<FileConfiguration> fileConfiguration = beansHolder.getFileConfigurationsHolder().
+                findByFileNamePattern(file.getFileName());
         if (fileConfiguration.isPresent()) {
             InFile inFile = new InFile(file.getFileName(), file.getAbsoluteFilePath(), file.getFileLength(),
                     fileConfiguration.get().getConfigName());
-            inFileRepository.save(inFile);
+            beansHolder.getInFileRepository().save(inFile);
             Long fileId = inFile.getFileId();
 
             headers.put("fileId", fileId);

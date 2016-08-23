@@ -1,4 +1,4 @@
-package com.github.vendigo.charon.file.registration;
+package com.github.vendigo.charon.routes.file.registration;
 
 import org.apache.camel.component.jpa.Consumed;
 

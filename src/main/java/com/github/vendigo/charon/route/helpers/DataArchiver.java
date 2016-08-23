@@ -1,6 +1,6 @@
 package com.github.vendigo.charon.route.helpers;
 
-import com.github.vendigo.charon.file.registration.InFileStatus;
+import com.github.vendigo.charon.routes.file.registration.InFileStatus;
 import com.github.vendigo.charon.utils.HeaderNames;
 import org.apache.camel.Header;
 import org.springframework.beans.factory.annotation.Autowired;

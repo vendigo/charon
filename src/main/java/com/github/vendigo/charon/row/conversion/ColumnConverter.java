@@ -1,6 +1,6 @@
 package com.github.vendigo.charon.row.conversion;
 
-import com.github.vendigo.charon.file.parsing.Column;
+import com.github.vendigo.charon.routes.file.config.Column;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

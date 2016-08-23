@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AppProperties {
+    public static final String END_OF_LINE = "\n";
     @Value("${files.dir.in}")
     private String inFolder;
     @Value("${files.dir.processed}")
@@ -17,7 +18,6 @@ public class AppProperties {
     private int threadsCount;
     @Value("${business.date}")
     private String businessDate;
-    private String endOfLine = "\n";
 
     public String getInFolder() {
         return inFolder;
@@ -41,9 +41,5 @@ public class AppProperties {
 
     public String getBusinessDate() {
         return businessDate;
-    }
-
-    public String getEndOfLine() {
-        return endOfLine;
     }
 }

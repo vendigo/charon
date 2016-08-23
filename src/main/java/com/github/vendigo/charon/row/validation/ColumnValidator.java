@@ -1,6 +1,6 @@
 package com.github.vendigo.charon.row.validation;
 
-import com.github.vendigo.charon.file.parsing.Column;
+import com.github.vendigo.charon.routes.file.config.Column;
 import org.springframework.stereotype.Component;
 
 @Component("columnValidator")

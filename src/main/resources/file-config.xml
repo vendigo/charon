@@ -3,21 +3,21 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="testFileConfig" class="com.github.vendigo.charon.file.parsing.FileConfiguration">
+    <bean id="testFileConfig" class="com.github.vendigo.charon.routes.file.config.FileConfiguration">
         <constructor-arg name="configName" value="test"/>
         <constructor-arg name="fileNamePattern" value="File*.csv"/>
         <constructor-arg name="fileColumns">
             <list>
-                <bean class="com.github.vendigo.charon.file.parsing.Column">
+                <bean class="com.github.vendigo.charon.routes.file.config.Column">
                     <constructor-arg name="name" value="columnType"/>
                     <constructor-arg name="columnType" value="STRING"/>
                 </bean>
-                <bean class="com.github.vendigo.charon.file.parsing.Column">
+                <bean class="com.github.vendigo.charon.routes.file.config.Column">
                     <constructor-arg name="name" value="businessDate"/>
                     <constructor-arg name="columnType" value="DATE"/>
                     <property name="dateFormat" value="YYYYmmDD"/>
                 </bean>
-                <bean class="com.github.vendigo.charon.file.parsing.Column">
+                <bean class="com.github.vendigo.charon.routes.file.config.Column">
                     <constructor-arg name="name" value="account"/>
                     <constructor-arg name="columnType" value="STRING"/>
                     <property name="maxLength" value="9"/>
@@ -28,7 +28,7 @@
                         </set>
                     </property>
                 </bean>
-                <bean class="com.github.vendigo.charon.file.parsing.Column">
+                <bean class="com.github.vendigo.charon.routes.file.config.Column">
                     <constructor-arg name="name" value="accountName"/>
                     <constructor-arg name="columnType" value="STRING"/>
                     <property name="maxLength" value="50"/>
@@ -38,7 +38,7 @@
                         </set>
                     </property>
                 </bean>
-                <bean class="com.github.vendigo.charon.file.parsing.Column">
+                <bean class="com.github.vendigo.charon.routes.file.config.Column">
                     <constructor-arg name="name" value="someSecurity"/>
                     <constructor-arg name="columnType" value="STRING"/>
                     <property name="maxLength" value="10"/>
@@ -48,11 +48,11 @@
                         </set>
                     </property>
                 </bean>
-                <bean class="com.github.vendigo.charon.file.parsing.Column">
+                <bean class="com.github.vendigo.charon.routes.file.config.Column">
                     <constructor-arg name="name" value="quantity"/>
                     <constructor-arg name="columnType" value="DECIMAL"/>
                 </bean>
-                <bean class="com.github.vendigo.charon.file.parsing.Column">
+                <bean class="com.github.vendigo.charon.routes.file.config.Column">
                     <constructor-arg name="name" value="shouldReportToAldebaranHeadQuarters"/>
                     <constructor-arg name="columnType" value="BOOLEAN"/>
                 </bean>
@@ -62,20 +62,20 @@
         <property name="hasHeader" value="true" />
     </bean>
 
-    <bean id="sampleFileConfig" class="com.github.vendigo.charon.file.parsing.FileConfiguration">
+    <bean id="sampleFileConfig" class="com.github.vendigo.charon.routes.file.config.FileConfiguration">
         <constructor-arg name="configName" value="sample"/>
         <constructor-arg name="fileNamePattern" value="sample.csv"/>
         <constructor-arg name="fileColumns">
             <list>
-                <bean class="com.github.vendigo.charon.file.parsing.Column">
+                <bean class="com.github.vendigo.charon.routes.file.config.Column">
                     <constructor-arg name="name" value="id"/>
                     <constructor-arg name="columnType" value="INT"/>
                 </bean>
-                <bean class="com.github.vendigo.charon.file.parsing.Column">
+                <bean class="com.github.vendigo.charon.routes.file.config.Column">
                     <constructor-arg name="name" value="name"/>
                     <constructor-arg name="columnType" value="STRING"/>
                 </bean>
-                <bean class="com.github.vendigo.charon.file.parsing.Column">
+                <bean class="com.github.vendigo.charon.routes.file.config.Column">
                     <constructor-arg name="name" value="age"/>
                     <constructor-arg name="columnType" value="INT"/>
                 </bean>

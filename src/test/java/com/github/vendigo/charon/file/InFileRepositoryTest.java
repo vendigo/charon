@@ -1,7 +1,7 @@
 package com.github.vendigo.charon.file;
 
-import com.github.vendigo.charon.file.registration.InFile;
-import com.github.vendigo.charon.file.registration.InFileRepository;
+import com.github.vendigo.charon.routes.file.registration.InFile;
+import com.github.vendigo.charon.routes.file.registration.InFileRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,8 +1,8 @@
 package com.github.vendigo.charon.file;
 
-import com.github.vendigo.charon.file.registration.FileState;
-import com.github.vendigo.charon.file.registration.InFileStatus;
-import com.github.vendigo.charon.file.registration.InFileStatusRepository;
+import com.github.vendigo.charon.routes.file.registration.FileState;
+import com.github.vendigo.charon.routes.file.registration.InFileStatus;
+import com.github.vendigo.charon.routes.file.registration.InFileStatusRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

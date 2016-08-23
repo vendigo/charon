@@ -1,4 +1,4 @@
-package com.github.vendigo.charon.file.parsing;
+package com.github.vendigo.charon.routes.file.config;
 
 import com.github.vendigo.charon.row.conversion.ConvertFunction;
 
